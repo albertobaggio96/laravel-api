@@ -1,0 +1,111 @@
+@import '~bootstrap/scss/bootstrap';
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+
+main{
+  section#home-page{
+    height: calc(100vh - 56px);
+    background: linear-gradient(to bottom right, #303f9f, #3f51b5, #673ab7, #9c27b0, );
+    background-size: 800% 800%;
+    animation: gradientBackground 20s ease infinite;
+
+    @keyframes gradientBackground {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    a {
+      color: #FFF;
+      transition: all 0.5s;
+      position: relative;
+    
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background-color: rgba(255,255,255,0.1);
+        transition: all 0.3s;
+      }
+      &:hover::before {
+        opacity: 0 ;
+        transform: scale(0.5,0.5);
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0;
+        transition: all 0.3s;
+        border: 1px solid rgba(255,255,255,0.5);
+        transform: scale(1.2,1.2);
+      }
+      &:hover::after {
+        opacity: 1;
+        transform: scale(1,1);
+      }
+    }
+    
+  }
+
+  section#guest-projects{
+  .flip-card {
+    height: 300px;
+  }
+
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .flip-card-front {
+    color: black;
+  }
+
+  .flip-card-back {
+    background-color: rgba(0, 0, 0, 0.581);
+    color: white;
+    transform: rotateY(180deg);
+  }
+  }
+}
+
+table{
+  line-height: 50px;
+  img.preview{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  }
+}
+
