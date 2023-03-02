@@ -81,7 +81,7 @@ class ProjectController extends Controller
         $newProject= new Project();
         $newProject->fill($data);
         $newProject->save();
-        $newProject->technologies()->sync($data['technologies']);
+        $newProject->technologies()->sync($data['technologies'] ?? []);
 
         return redirect()->route("admin.projects.show", $newProject->slug)->with("message", "$newProject->title è stato creato con successo")->with("alert-type", "success");
     }
@@ -134,7 +134,7 @@ class ProjectController extends Controller
         $data["preview"]= Storage::put("img", $data["preview"]);
 
         $project->update($data);
-        $project->technologies()->sync($data['technologies']);
+        $project->technologies()->sync($data['technologies'] ?? []);
 
 
         return redirect()->route("admin.projects.show", compact("project"))->with("message", "$project->title è stato modificato con successo")->with("alert-type", "success");
