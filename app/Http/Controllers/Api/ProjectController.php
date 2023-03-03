@@ -18,7 +18,7 @@ class ProjectController extends Controller
     }
 
     public function show(Project $project){
-        $project = Project::where("id", $project->id)->with('type', 'technologies')->orderBy("date", "DESC")->paginate(15);
+        $project = Project::with('type', 'technologies')->findOrFail($project->id);
 
         return response()->json([
             'success'=> true,
