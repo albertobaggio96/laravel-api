@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Type;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TypeController extends Controller
 {
@@ -44,10 +45,13 @@ class TypeController extends Controller
     {
         $rules= $this->rules;
         $data= $request->validate($rules);
+        $data['slug']= Str::slug($data['type']);
 
         $newType = new Type();
         $newType->fill($data);
         $newType->save();
+        $newType->slug .= "-$newType->id";
+        $newType->update();
 
         return redirect()->route('admin.types.show', $newType->id);
     }
@@ -86,6 +90,7 @@ class TypeController extends Controller
         $rules= $this->rules;
         $rules['type']= ['required', 'string', 'min:2', 'max:10', Rule::unique('types')->ignore($type->id)];
         $data= $request->validate($rules);
+        $data['slug']= Str::slug($data['type'])."-$type->id";
 
         $type->update($data);
 

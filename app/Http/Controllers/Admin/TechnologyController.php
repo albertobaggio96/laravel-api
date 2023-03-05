@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Technology;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TechnologyController extends Controller
 {
     protected $rules = [
-        'technology'=> 'required|min:2|max:10|unique:technologies,technology'
+        'technology'=> 'required|min:2|max:10|unique:technologies,technology',
     ];
     /**
      * Display a listing of the resource.
@@ -44,10 +45,14 @@ class TechnologyController extends Controller
     {
         $rules= $this->rules;
         $data= $request->validate($rules);
+        $data['slug'] = Str::slug($data['technology']);
 
         $newtechnology = new technology();
+
         $newtechnology->fill($data);
         $newtechnology->save();
+        $newtechnology->slug .= "-$newtechnology->id";
+        $newtechnology->update();
 
         return redirect()->route('admin.technologies.show', $newtechnology->id);
     }
@@ -86,6 +91,7 @@ class TechnologyController extends Controller
         $rules= $this->rules;
         $rules['technology']= ['required', 'string', 'min:2', 'max:10', Rule::unique('technologies')->ignore($technology->id)];
         $data= $request->validate($rules);
+        $data['slug']= Str::slug($data['technology'])."-$technology->id";
 
         $technology->update($data);
 
