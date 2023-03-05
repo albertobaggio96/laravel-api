@@ -28,8 +28,9 @@ class ProjectTableSeeder extends Seeder
             $newProject->author = "Alberto Baggio";
             $newProject->date = $faker->date();
             $newProject->preview = $faker->imageUrl(640, 640);
-            
             $newProject->save();
+            $newProject->slug .= "-$newProject->id";
+            $newProject->update();
         }
     }
 }
