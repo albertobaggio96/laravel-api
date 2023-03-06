@@ -9,9 +9,15 @@ class Type extends Model
 {
     use HasFactory;
 
-    protected $fillable=['type', 'slug'];
+    protected $fillable = ['type', 'slug'];
 
-    public function projects(){
+    public function getRouteKeyName()
+    {
+        return "slug";
+    }
+
+    public function projects()
+    {
         return $this->hasMany(Project::class);
     }
 }

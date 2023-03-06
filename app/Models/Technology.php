@@ -9,9 +9,15 @@ class Technology extends Model
 {
     use HasFactory;
 
-    protected $fillable=['technology', 'slug'];
+    protected $fillable = ['technology', 'slug'];
 
-    public function projects(){
+    public function getRouteKeyName()
+    {
+        return "slug";
+    }
+
+    public function projects()
+    {
         return $this->belongsToMany(Project::class);
     }
 }
