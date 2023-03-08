@@ -21,12 +21,16 @@ class RoleTableSeeder extends Seeder
                 'value' => '1'
             ],
             [
-                'name' => 'Moderator',
+                'name' => 'semiAdmin',
                 'value' => '2'
             ],
             [
-                'name' => 'User',
+                'name' => 'Moderator',
                 'value' => '3'
+            ],
+            [
+                'name' => 'User',
+                'value' => '4'
             ],
             
         ];

@@ -19,7 +19,7 @@ class RoleUserTableSeeder extends Seeder
         $users = User::all();
         
         foreach($users as $user){
-            $user->roles()->attach(Role::inRandomOrder()->pluck('id')->first());
+            $user->roles()->attach(Role::inRandomOrder()->pluck('id')->chunk(3)->first());
         }
     }
 }

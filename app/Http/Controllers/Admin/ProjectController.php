@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Role;
 use App\Models\Technology;
 use App\Models\Type;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -46,7 +48,15 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects=Project::orderBy("date", "DESC")->paginate(10);
+        $roleValue = Auth::user()->roles->pluck('id')->first();
+
+        
+        if($roleValue === 1){
+            $projects=Project::orderBy("date", "DESC")->get();
+            dd($projects);
+        }else {
+            $projects=Project::where('author', Auth::user()->name)->orderBy("date", "DESC")->paginate(10);
+        }
         return view("admin.project.index", compact("projects"));
     }
 

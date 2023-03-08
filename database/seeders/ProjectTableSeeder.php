@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -25,7 +26,7 @@ class ProjectTableSeeder extends Seeder
 
             $newProject->title = $faker->unique()->sentence(3);
             $newProject->slug = Str::slug($newProject->title);
-            $newProject->author = "Alberto Baggio";
+            $newProject->user_id = User::inRandomOrder()->pluck('id')->first();
             $newProject->date = $faker->date();
             $newProject->preview = $faker->imageUrl(640, 640);
             $newProject->save();
