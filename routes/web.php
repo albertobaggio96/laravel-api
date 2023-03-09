@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Admin\TechnologyController as AdminTechnologyController;
 use App\Http\Controllers\Admin\TypeController as AdminTypeController;
 use App\Http\Controllers\Guest\ProjectController as GuestProjectController;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/contact-us', [LeadController::class, 'create'])->name('guest.contacts.create');
+Route::post('/contact-us', [LeadController::class, 'store'])->name('guest.contacts.store');
 
 Route::prefix("guest")->name("guest.")->group(function(){
     Route::post('/projects/search', [GuestProjectController::class, "search"])->name("search");
