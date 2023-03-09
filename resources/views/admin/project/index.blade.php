@@ -36,7 +36,7 @@
         <tr>
             <td>{{ $project->id }}</td>
             <td>{{ $project->title }}</td>
-            <td>{{ $project->author }}</td>
+            <td>{{ $project->user_id }}</td>
             <td>{{ $project->date }}</td>
             <td><img src="{{ filter_var($project->preview, FILTER_VALIDATE_URL)  ? $project->preview : asset('storage/'. $project->preview)}}" alt="{{ $project->title }}" class="preview"></td>
             <td>{{ $project->type->type ?? 'type non definito' }}</td>

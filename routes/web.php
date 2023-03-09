@@ -32,8 +32,8 @@ Route::middleware(['auth', 'verified'])->prefix("admin")->name('admin.')->group(
     Route::get('/dashboard', [DashboardController::class, "index"])->name("dashboard");
     Route::post('/projects/search', [AdminProjectController::class, "search"])->name("projects.search");
     Route::get("/projects/trashed",  [AdminProjectController::class, "trashed"] )->name("projects.trashed");
-    Route::get("/projects/{slug}/restore", [AdminProjectController::class, "restore"])->name("projects.restore");
-    Route::delete("/projects/{slug}/force-delete", [AdminProjectController::class, "forceDelete"])->name("projects.force-delete");
+    Route::get("/projects/{project}/restore", [AdminProjectController::class, "restore"])->name("projects.restore")->withTrashed();
+    Route::delete("/projects/{project}/force-delete", [AdminProjectController::class, "forceDelete"])->name("projects.force-delete")->withTrashed();
     Route::delete("/projects/{project}/clear-type", [AdminProjectController::class, "clearType"])->name("projects.clear-type");
     Route::resource("/projects", AdminProjectController::class);
     Route::resource("/types", AdminTypeController::class);
