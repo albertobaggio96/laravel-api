@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
     public function index(){
-        $projects = Project::with('type', 'technologies')->orderBy("date", "DESC")->paginate(15);
+        $projects = Project::with('type', 'technologies', 'user')->orderBy("date", "DESC")->paginate(15);
 
         return response()->json([
             'success'=> true,
@@ -18,7 +18,7 @@ class ProjectController extends Controller
     }
 
     public function show(Project $project){
-        $project = Project::with('type', 'technologies')->findOrFail($project->id);
+        $project = Project::with('type', 'technologies', 'user')->findOrFail($project->id);
 
         return response()->json([
             'success'=> true,
