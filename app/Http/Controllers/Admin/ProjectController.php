@@ -49,11 +49,11 @@ class ProjectController extends Controller
     public function index()
     {
         $roleValue = Auth::user()->roles->pluck('id')->contains(1);
-        
+
         if($roleValue){
             $projects=Project::orderBy("date", "DESC")->paginate(10);
         }else 
-            $projects=Project::where('user_id', Auth::user()->id)->orderBy("date", "DESC")->paginate(10);
+        $projects=Project::where('user_id', Auth::user()->id)->orderBy("date", "DESC")->paginate(10);
         
         return view("admin.project.index", compact("projects"));
     }
